@@ -49,7 +49,7 @@
 #' \donttest{cfaHB(model=manmod,n=400,manual=TRUE)}
 #'
 cfaHB <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
-#test
+  #test
   #If manual, expect manual (a la Shiny app)
   if(manual){
 
@@ -125,6 +125,7 @@ cfaHB <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
 
   #Create list to store outputs (table and plot)
   res <- list()
+  browser()
 
   #Output fit indices if someone used manual=F
   #Will ignore in print statement if manual=T

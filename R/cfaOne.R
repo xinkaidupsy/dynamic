@@ -44,6 +44,7 @@
 #'
 
 cfaOne <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
+  browser()
 
   #If manual, expect manual (a la Shiny app)
   if(manual){

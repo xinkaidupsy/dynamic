@@ -36,6 +36,7 @@ value1<-density<-disc<-l<-value<-xx<-rand<-..density..<-NULL
 #Copy from OG
 
 number_factor <- function(model){
+  browser()
 
   #prep the model
   lav_file <- lavaan::lavaanify(model, fixed.x=FALSE) %>%
@@ -56,6 +57,7 @@ number_factor <- function(model){
 #### Function for Isolating First-Order Factors ####
 
 iso_first <- function(model){
+  browser()
 
   #isolate higher-order factors
   factHigh <- lavaan::lavaanify(model, fixed.x=FALSE) %>%
@@ -84,6 +86,7 @@ iso_first <- function(model){
 #### Function for Number of First-Order Factors ####
 
 number_factor_first <- function(model){
+  browser()
 
   #identify number of factors in model
   num_factors <- base::length(iso_first(model))
@@ -111,6 +114,7 @@ unstandardized <- function(model){
 # Used for error message
 
 defre <- function(model,n){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -148,6 +152,7 @@ cfa_n <- function(model){
 #SPECIFIC TO R PACKAGE
 
 cfa_lavmod <- function(model){
+  browser()
 
   #Extract standardized solution from lavaan object
   lav <- lavaan::standardizedSolution(model)
@@ -175,6 +180,7 @@ cfa_lavmod <- function(model){
 #### Function to clean dataset of fit indices (now exportable as of 1.26.22)
 
 fit_data <- function(df_results){
+  browser()
 
   #Create beginning of variable name for each
   dat_name <- base::rep(c("SRMR_L","RMSEA_L","CFI_L","Type_L"),2)
@@ -231,6 +237,7 @@ fit_data <- function(df_results){
 ### One-factor: Function to see which items are available ###
 
 one_num <- function(model){
+  browser()
 
   #Rename (just to be consistent with shiny app)
   Mod_C <- model
@@ -275,6 +282,7 @@ one_num <- function(model){
 #### One-Factor: Function to create misspecification statement ####
 
 one_add <- function(model){
+  browser()
 
   #Read in available items
   itemoptions <- one_num(model)
@@ -317,6 +325,7 @@ one_add <- function(model){
 #### One-factor: Function to create Misspecified DGM ####
 
 DGM_one <- function(model){
+  browser()
 
   #Count number of available items for number of misspecifications
   num_m<- base::nrow(one_num(model))
@@ -362,6 +371,7 @@ DGM_one <- function(model){
 ### One-factor: Simulate fit indices for misspecified model for all levels ###
 
 one_fit <- function(model,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -434,6 +444,7 @@ one_fit <- function(model,n,estimator,reps){
 #### One_Factor: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_one <- function(model,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -500,6 +511,7 @@ true_fit_one <- function(model,n,estimator,reps){
 #### One-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 one_df <- function(model,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -526,6 +538,7 @@ one_df <- function(model,n,estimator,reps){
 ### Multi-factor: Function to see which items are available ###
 
 multi_num_HB <- function(model){
+  browser()
 
   #Rename (just to be consistent with shiny app)
   Mod_C <- model
@@ -601,6 +614,7 @@ multi_num_HB <- function(model){
 #### Multi-Factor: Function to identify available items and loading magnitude ####
 
 multi_add_HB <- function(model){
+  browser()
 
   #read in the model
   Mod_C <- model
@@ -733,6 +747,7 @@ multi_add_HB <- function(model){
 #### Multi-factor: Function to create Misspecified DGM given the number of factors ####
 
 DGM_Multi_HB <- function(model){
+  browser()
 
   mod <- multi_add_HB(model)
 
@@ -760,6 +775,7 @@ DGM_Multi_HB <- function(model){
 ### Multi-factor: Simulate fit indices for misspecified model for all levels ###
 
 multi_fit_HB <- function(model,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -831,6 +847,7 @@ multi_fit_HB <- function(model,n,estimator,reps){
 #### Multi_Factor: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_HB <- function(model,n,estimator,reps){
+  browser()
 
   #Can make this faster by only doing it once
   #Would need to change table. Not sure what would happen to plot.
@@ -850,6 +867,7 @@ true_fit_HB <- function(model,n,estimator,reps){
 
   #Set Seed
   set.seed(267326)
+  browser()
 
   #Simulate one large dataset
   all_data_true <- simstandard::sim_standardized(m=true_dgm,n = n*r,
@@ -902,6 +920,7 @@ true_fit_HB <- function(model,n,estimator,reps){
 #### Multi-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 multi_df_HB <- function(model,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -926,6 +945,7 @@ multi_df_HB <- function(model,n,estimator,reps){
 ##### NCP Chi-Sq #####
 
 equiv_ncp_chi2 <- function(alpha,T_ml,df){
+  browser()
 
   z=stats::qnorm(1-alpha)
   z2=z*z
@@ -958,6 +978,7 @@ equiv_ncp_chi2 <- function(alpha,T_ml,df){
 ######## Compute Values #########
 
 equiv_cutoffs <- function(p,T_ml,df,T_mli,n){
+  browser()
 
   #Set parms
   df_i <- p*(p-1)/2
@@ -1063,6 +1084,7 @@ equiv_df <- function(obj){
 ############################################################################
 
 exact_fit_dat <- function(model,n,reps){
+  browser()
   mod <- cleanmodel(model)
 
   true_dgm <- model
@@ -1114,6 +1136,7 @@ exact_fit_dat <- function(model,n,reps){
 #### Function to Create lav_file with Only First-Order Factors ####
 
 lav_file_first <- function(model){
+  browser()
 
   #isolate names of first-order factors
   factFirst <- iso_first(model)
@@ -1155,6 +1178,7 @@ lav_file_first <- function(model){
 #### Function for Model-Implied First-Order Factor Correlations  ####
 
 MI_corr_first <- function(model){
+  browser()
 
   #isolate first-order factors
   factFirst <- iso_first(model)
@@ -1187,6 +1211,7 @@ MI_corr_first <- function(model){
 ### Hierarchical: Function to see which items are available ###
 
 multi_num_hier <- function(model){
+  browser()
 
   #Rename (just to be consistent with shiny app)
   Mod_C <- model
@@ -1261,6 +1286,7 @@ multi_num_hier <- function(model){
 #### Hierarchical: Function to identify available items and loading magnitude ####
 
 multi_add_hier <- function(model){
+  browser()
 
   #read in the model
   Mod_C <- model
@@ -1380,6 +1406,7 @@ multi_add_hier <- function(model){
 #### Hierarchical: Function to create Misspecified DGM given the number of factors ####
 
 DGM_Multi_hier <- function(model){
+  browser()
 
   mod <- multi_add_hier(model)
 
@@ -1407,6 +1434,7 @@ DGM_Multi_hier <- function(model){
 ### Hierarchical: Simulate fit indices for misspecified model for all levels ###
 
 multi_fit_hier <- function(model,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -1479,6 +1507,7 @@ multi_fit_hier <- function(model,n,estimator,reps){
 #### Hierarchical: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_hier <- function(model,n,estimator,reps){
+  browser()
 
   #Can make this faster by only doing it once
   #Would need to change table. Not sure what would happen to plot.
@@ -1550,6 +1579,7 @@ true_fit_hier <- function(model,n,estimator,reps){
 #### Hierarchical: Function to combine both model fit stats for all levels into one dataframe ####
 
 multi_df_hier <- function(model,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -1574,6 +1604,7 @@ multi_df_hier <- function(model,n,estimator,reps){
 #### Function for Isolating Second-Order Factors ####
 
 iso_second <- function(model){
+  browser()
 
   #isolate first-order factors
   factFirst <- iso_first(model)
@@ -1592,6 +1623,7 @@ iso_second <- function(model){
 #### Function to Create lav_file with Only Second-Order Factors ####
 
 lav_file_second <- function(model){
+  browser()
 
   #isolate names of first-order factors
   factFirst <- iso_first(model)
@@ -1621,6 +1653,7 @@ lav_file_second <- function(model){
 ### Hierarchical2: Function to see which items are available ###
 
 one_num_hier2 <- function(model){
+  browser()
 
   #Rename (just to be consistent with shiny app)
   Mod_C <- model
@@ -1664,6 +1697,7 @@ one_num_hier2 <- function(model){
 #### Hierarchical2: Function to create misspecification statement ####
 
 one_add_hier2 <- function(model){
+  browser()
 
   #Read in available items
   itemoptions <- one_num_hier2(model)
@@ -1707,6 +1741,7 @@ one_add_hier2 <- function(model){
 #### Hierarchical2: Function to create Misspecified DGM ####
 
 DGM_one_hier2 <- function(model){
+  browser()
 
   #Count number of available items for number of misspecifications
   num_m<- base::nrow(one_num_hier2(model))
@@ -1753,6 +1788,7 @@ DGM_one_hier2 <- function(model){
 ### Hierarchical2: Simulate fit indices for misspecified model for all levels ###
 
 one_fit_hier2 <- function(model,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -1825,6 +1861,7 @@ one_fit_hier2 <- function(model,n,estimator,reps){
 #### Hierarchical2: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_one_hier2 <- function(model,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -1891,6 +1928,7 @@ true_fit_one_hier2 <- function(model,n,estimator,reps){
 #### Hierarchical2: Function to combine both model fit stats for all levels into one dataframe ####
 
 one_df_hier2 <- function(model,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -1915,6 +1953,7 @@ one_df_hier2 <- function(model,n,estimator,reps){
 ###### Separate out thresholds from manual=TRUE#
 ##### this is used to to create threshold list for simulation discretized #
 cleanthreshold <- function(model){
+  browser()
 
   suppressMessages(model %>%
                      lavaan::lavaanify(fixed.x = FALSE) %>%
@@ -1926,6 +1965,7 @@ cleanthreshold <- function(model){
 ### discard thresholds if Manual = TRUE but keep the estimates#
 ### Basiclly a long way to get equivalent of model statement with manual=TRUE for continuous case#
 modelWithNum <- function(model){
+  browser()
 
   suppressMessages(model %>%
                      lavaan::lavaanify(fixed.x=FALSE) %>%
@@ -1944,6 +1984,7 @@ modelWithNum <- function(model){
 
 ### function to grab the thresholds if input is a lavaan file
 Thresh <- function(model){
+  browser()
 
   #Extract standardized solution from lavaan object
   lav <- lavaan::standardizedSolution(model)
@@ -1964,6 +2005,7 @@ Thresh <- function(model){
 ##Used for identifying which items are categorical in simulation
 ##That allows for a mix of continuous and categorical items, if someone happens to have that
 cat_items <- function(threshold){
+  browser()
   #prep the model
   items <- threshold %>%
     dplyr::filter(op=="|") %>%
@@ -1978,6 +2020,7 @@ cat_items <- function(threshold){
 ## cleanthreshold function puts thresholds into same format as lavaan object ##
 ## items with different number of categories result in NA for extra categories##
 th<-function(threshold){
+  browser()
   a1<-stats::reshape(threshold, idvar="rhs",timevar="lhs",direction="wide", drop="op") #transpose so that each column is var and threshold read down
   a1<-a1[-c(1)] #remove unnecessary columns
   a2<-t(as.data.frame(cat_items(threshold))) #transpose names to row vector
@@ -1987,6 +2030,7 @@ th<-function(threshold){
 }
 ### return item names for categorical items, this allows continuous & categorical in same model ###
 th2<-function(threshold){
+  browser()
   a1<-stats::reshape(threshold, idvar="rhs",timevar="lhs",direction="wide", drop="op") #transpose so that each column is var and threshold read down
   a1<-a1[-c(1)] #remove unnecessary columns
   a2<-t(as.data.frame(cat_items(threshold))) #transpose names to row vector
@@ -1996,6 +2040,7 @@ th2<-function(threshold){
 }
 
 one_fit_cat <- function(model,n,reps,threshold, estimator){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2096,6 +2141,7 @@ one_fit_cat <- function(model,n,reps,threshold, estimator){
 
 #simulates MVN data, but then bins it based on thresholds
 true_fit_one_cat <- function(model,n,reps, threshold, estimator){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2183,6 +2229,7 @@ true_fit_one_cat <- function(model,n,reps, threshold, estimator){
   }
 
 one_df_cat <- function(model,n,reps,threshold, estimator){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -2205,6 +2252,7 @@ one_df_cat <- function(model,n,reps,threshold, estimator){
 ##################################################
 
 multi_fit_HB_cat <- function(model,n,reps, threshold, estimator){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2302,6 +2350,7 @@ multi_fit_HB_cat <- function(model,n,reps, threshold, estimator){
 }
 
 true_fit_HB_cat <- function(model,n,reps, threshold, estimator){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2396,6 +2445,7 @@ true_fit_HB_cat <- function(model,n,reps, threshold, estimator){
 #### Multi-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 multi_df_HB_cat <- function(model,n,reps, threshold,estimator){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -2419,6 +2469,7 @@ multi_df_HB_cat <- function(model,n,reps, threshold,estimator){
 
 ### One-factor: Simulate fit indices for misspecified model for all levels ###
 one_fit_nnor <- function(model,data, n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2498,6 +2549,7 @@ one_fit_nnor <- function(model,data, n,estimator,reps){
 #### One_Factor: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_one_nnor <- function(model,data,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2567,6 +2619,7 @@ true_fit_one_nnor <- function(model,data,n,estimator,reps){
 #### One-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 one_df_nnor <- function(model,data,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -2585,6 +2638,7 @@ one_df_nnor <- function(model,data,n,estimator,reps){
 }
 
 data_nnor <- function(model,data, n,reps){
+  browser()
 
   #Get parameters for misspecified dgm
   mod <- cleanmodel(model)
@@ -2637,6 +2691,7 @@ data_nnor <- function(model,data, n,reps){
 
 ### multi-factor: Simulate fit indices for misspecified model for all levels ###
 multi_fit_nnor <- function(model,data, n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2720,6 +2775,7 @@ multi_fit_nnor <- function(model,data, n,estimator,reps){
 #### multi_Factor: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_multi_nnor <- function(model,data,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2791,6 +2847,7 @@ true_fit_multi_nnor <- function(model,data,n,estimator,reps){
 #### multi-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 multi_df_nnor <- function(model,data,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -2815,6 +2872,7 @@ multi_df_nnor <- function(model,data,n,estimator,reps){
 
 
 multi_fit_likert <- function(model,data, n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -2950,6 +3008,7 @@ multi_fit_likert <- function(model,data, n,estimator,reps){
 #### multi_Factor: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_multi_likert <- function(model,data,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -3072,6 +3131,7 @@ true_fit_multi_likert <- function(model,data,n,estimator,reps){
 #### multi-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 multi_df_likert <- function(model,data,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -3090,6 +3150,7 @@ multi_df_likert <- function(model,data,n,estimator,reps){
 }
 
 data_likert <- function(model,data, n){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -3180,6 +3241,7 @@ data_likert <- function(model,data, n){
 
 #function for misspecified model
 multi_fit_likert2 <- function(model,data, n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -3366,6 +3428,7 @@ multi_fit_likert2 <- function(model,data, n,estimator,reps){
 ## Function for correct model
 
 true_fit_multi_likert2 <- function(model,data,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -3530,6 +3593,7 @@ true_fit_multi_likert2 <- function(model,data,n,estimator,reps){
 }
 
 multi_df_likert2 <- function(model,data,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -3548,6 +3612,7 @@ multi_df_likert2 <- function(model,data,n,estimator,reps){
 }
 
 data_likert2 <- function(model,data,n){
+  browser()
 
   mod <- cleanmodel(model)
 
@@ -3640,6 +3705,7 @@ data_likert2 <- function(model,data,n){
 ### One-factor: Simulate fit indices for misspecified model for all levels ###
 
 one_fit_likert <- function(model,data,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -3769,6 +3835,7 @@ one_fit_likert <- function(model,data,n,estimator,reps){
 #### One_Factor: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_one_likert <- function(model,data,n,estimator,reps){
+  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -3886,6 +3953,7 @@ true_fit_one_likert <- function(model,data,n,estimator,reps){
 #### One-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 one_df_likert <- function(model,data,n,estimator,reps){
+  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)
@@ -3912,6 +3980,7 @@ one_df_likert <- function(model,data,n,estimator,reps){
 #different from original cleanmodel function to allow..
 #... for broader types of paths
 cleanmodel_3DFI <- function(model){
+  browser()
 
   suppressMessages(  model %>%
                        lavaan::lavaanify(fixed.x = FALSE) %>%
@@ -3932,11 +4001,13 @@ cleanmodel_3DFI <- function(model){
 #There is no build in function for the LKJ distribution
 #Manually write out LKJ distribution (taken trialr package, maintained by Kristian Brock)
 rlkjcorr <- function (n, K, eta = 1) {
+  browser()
   stopifnot(is.numeric(K), K >= 2, K == as.integer(K))
   stopifnot(eta > 0)
   #if (K == 1) return(matrix(1, 1, 1))
 
   f <- function() {
+    browser()
     alpha <- eta + (K - 2)/2
     r12 <- 2 * rbeta(1, alpha, alpha) - 1
     R <- matrix(0, K, K) # upper triangular Cholesky factor until return()
@@ -3971,6 +4042,7 @@ rlkjcorr <- function (n, K, eta = 1) {
 #fits original model to misspecified data
 #collates fit indices into a data frame
 miss_fit <- function(model,data,n,reps,estimator,MAD,scale){
+  browser()
 
   #strip estimates from model statement
   mod <- cleanmodel_3DFI(model)
@@ -4367,6 +4439,7 @@ miss_fit <- function(model,data,n,reps,estimator,MAD,scale){
 #collated fit indices into a data frame
 
 true_fit<- function(model,data,n,reps, estimator, MAD,scale){
+  browser()
 
   #strip estimates from model statement
   mod <- cleanmodel_3DFI(model)
@@ -4627,6 +4700,7 @@ true_fit<- function(model,data,n,reps, estimator, MAD,scale){
 #Function to combine all indices into one dataframe
 #Will used to created distributions that determine optimal cutoff
 combined <- function(model,data,n,reps,estimator,MAD,scale){
+  browser()
 
   #Use max sample size of 5000
   n <- n
