@@ -36,7 +36,6 @@ value1<-density<-disc<-l<-value<-xx<-rand<-..density..<-NULL
 #Copy from OG
 
 number_factor <- function(model){
-  browser()
 
   #prep the model
   lav_file <- lavaan::lavaanify(model, fixed.x=FALSE) %>%
@@ -114,7 +113,6 @@ unstandardized <- function(model){
 # Used for error message
 
 defre <- function(model,n){
-  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -152,7 +150,6 @@ cfa_n <- function(model){
 #SPECIFIC TO R PACKAGE
 
 cfa_lavmod <- function(model){
-  browser()
 
   #Extract standardized solution from lavaan object
   lav <- lavaan::standardizedSolution(model)
@@ -180,7 +177,6 @@ cfa_lavmod <- function(model){
 #### Function to clean dataset of fit indices (now exportable as of 1.26.22)
 
 fit_data <- function(df_results){
-  browser()
 
   #Create beginning of variable name for each
   dat_name <- base::rep(c("SRMR_L","RMSEA_L","CFI_L","Type_L"),2)
@@ -726,6 +722,7 @@ multi_add_HB <- function(model){
     dplyr::arrange(Priority,Loading,-H)
 
   #Compute maximum allowable cross loading value
+  # the max allowable cross loading depends on total var, error var & squared loading
   Cross_Loading <- modinfo %>%
     dplyr::mutate(F1=ustart,
                   F1_Sq=F1^2,
@@ -747,7 +744,6 @@ multi_add_HB <- function(model){
 #### Multi-factor: Function to create Misspecified DGM given the number of factors ####
 
 DGM_Multi_HB <- function(model){
-  browser()
 
   mod <- multi_add_HB(model)
 
@@ -775,7 +771,6 @@ DGM_Multi_HB <- function(model){
 ### Multi-factor: Simulate fit indices for misspecified model for all levels ###
 
 multi_fit_HB <- function(model,n,estimator,reps){
-  browser()
 
   #Get clean model equation
   mod <- cleanmodel(model)
@@ -847,7 +842,6 @@ multi_fit_HB <- function(model,n,estimator,reps){
 #### Multi_Factor: Function to create True DGM (aka, just the model the user read in) ####
 
 true_fit_HB <- function(model,n,estimator,reps){
-  browser()
 
   #Can make this faster by only doing it once
   #Would need to change table. Not sure what would happen to plot.
@@ -920,7 +914,6 @@ true_fit_HB <- function(model,n,estimator,reps){
 #### Multi-Factor: Function to combine both model fit stats for all levels into one dataframe ####
 
 multi_df_HB <- function(model,n,estimator,reps){
-  browser()
 
   #Use max sample size of 2000
   n <- min(n,2000)

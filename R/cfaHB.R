@@ -148,6 +148,7 @@ cfaHB <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
   res$data <- fit_data(results)
 
   #For each list element (misspecification) compute the cutoffs
+  # get the 5th, 6th, 7th, ..., 100th quantile values for fit indices of misspec model
   misspec_sum <- purrr::map(results,~dplyr::reframe(.,SRMR_M=stats::quantile(SRMR_M, c(seq(0.05,1,0.01))),
                                                     RMSEA_M=stats::quantile(RMSEA_M, c(seq(0.05,1,0.01))),
                                                     CFI_M=stats::quantile(CFI_M, c(seq(0.95,0,-0.01)))))
@@ -157,6 +158,8 @@ cfaHB <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
                                                  RMSEA_T=stats::quantile(RMSEA_T, c(.95)),
                                                  CFI_T=stats::quantile(CFI_T, c(.05))))
 
+  # check the fit the true model is better than which quantile value of the mis-specified model -->
+  # the true model fits better than misspfeicied model at this quantile --> this is the Power of this fit index
   fit<-list()
   S<-list()
   R<-list()
