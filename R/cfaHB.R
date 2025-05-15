@@ -125,7 +125,6 @@ cfaHB <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
 
   #Create list to store outputs (table and plot)
   res <- list()
-  browser()
 
   #Output fit indices if someone used manual=F
   #Will ignore in print statement if manual=T
@@ -157,6 +156,7 @@ cfaHB <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
   true_sum <- purrr::map(results,~dplyr::reframe(.,SRMR_T=stats::quantile(SRMR_T, c(.95)),
                                                  RMSEA_T=stats::quantile(RMSEA_T, c(.95)),
                                                  CFI_T=stats::quantile(CFI_T, c(.05))))
+
 
   # check the fit the true model is better than which quantile value of the mis-specified model -->
   # the true model fits better than misspfeicied model at this quantile --> this is the Power of this fit index
@@ -204,6 +204,7 @@ cfaHB <- function(model,n=NULL,plot=FALSE,manual=FALSE,estimator="ML",reps=500){
     if(fit1[j,4]<.50){fit1[j,3]<-"NONE"}
     if(fit1[j,6]<.50){fit1[j,5]<-"NONE"}
   }
+
   fit1[,2]<-PS
   fit1[,4]<-PR
   fit1[,6]<-PC
